@@ -1,0 +1,280 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins',sans-serif;
+    box-sizing: border-box;
+}
+body{
+    background: #1d2026;
+}
+.maincontainer
+{
+    background: #1d2026;
+    width: 100vw;
+    height: 100vh;
+  
+    color: #fff;
+    position:relative;
+
+   
+   
+ 
+
+}
+
+nav
+{
+    display: flex;
+    align-items: center;
+    padding: 20px  ;
+  
+}
+nav .menu-img
+{
+ width: 25px;
+ margin-right: 0px;
+ cursor: pointer;
+ 
+
+
+}
+nav .logo-img
+{
+    width: 150px;
+    cursor: pointer;
+    
+    
+    
+
+
+}
+nav ul{
+    flex: 1;
+    text-align: right;
+}
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 0 20px;
+
+}
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+
+}
+
+    
+.divbox
+{
+    width: 90% ;
+    height: 535px;
+    
+    backdrop-filter: blur(20px);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-45%);
+    border-radius: 25px;
+}
+.form-container
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+}
+form{
+    width: 90%;
+    max-width: 600px;
+
+ 
+   
+}
+.input-group
+{
+    margin-bottom: 30px;
+    position: relative;
+
+}
+input,textarea
+{
+    width: 100%;
+    padding: 10px;
+    outline: 0;
+    border:none;
+    border-bottom: 2px solid white;
+    color: hsl(0, 0%, 80%);
+    background: transparent;
+    font-size: 15px;
+    cursor: pointer;
+
+}
+label{
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top:0;
+    padding: 10px;
+    color:#fff;
+    cursor: text;
+    transition: 0.2s;
+
+}
+.input-group #temp{
+    position: absolute;
+ 
+    left: 0;
+    top:-20px;
+
+
+ 
+}
+button{
+    padding: 10px 0;
+    width: 100%;
+    color: #fff;
+    outline: none;
+    background:transparent;
+    border: 1px solid white;
+    border-radius: 4px;
+    cursor: pointer;
+
+}
+textarea{
+    background-color: #dddddd;
+    color: #666666;
+    border-radius: 14px;
+
+}
+.input-group #textarealabel
+{
+    color: #666666;
+    height: 30px;
+
+}
+.select-menu
+{
+
+    position: absolute;
+    width: 250px;
+    top: 5.50%;
+
+    right:28.555%;
+ 
+
+}
+
+.select-menu .select-btn
+{
+    display: flex;
+    height: 55px;
+    background:transparent;
+    color: white;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: 400;
+    
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    border: none;
+    border-bottom: 2px solid white;
+
+}
+.select-btn i{
+    font-size: 25px;
+    transition: 0.3s;
+
+
+}
+.select-menu.actived .select-btn i
+{
+    transform: rotate(-180deg);
+
+   
+}
+.select-menu .options
+{
+    position: relative;
+    padding: 20px;
+    color: black;
+    background: white;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+    display: none;
+
+
+}
+.select-menu.actived .options
+{
+
+    display: block;
+   
+}
+.options .option{
+    display: flex;
+    height: 55px;
+    cursor: pointer;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 8px;
+    background:white;
+
+
+}
+.options .option:hover{
+    background: #F2F2F2;
+
+}
+.option img{
+    font-size: 20px;
+    margin-right: 12px;
+
+
+}
+.option .option-text
+{
+    font-size: 18px;
+    color: #333;
+
+
+}
+
+
+input:focus~label,
+input:valid~label,
+textarea:focus~label,
+textarea:valid~label,
+textarea:focus~#textarealabel,
+textarea:valid~#textarealabel
+{
+
+    top: -30px;
+    font-size: 14px;
+    color: #fff;
+
+
+}
+.row
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position:relative;
+    
+}
+.row .input-group
+   
+{
+    flex-basis: 48%;
+
+}
+
+

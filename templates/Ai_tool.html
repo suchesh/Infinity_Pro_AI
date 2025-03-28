@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity AI Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Ai_tool.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+
+        <nav>
+            <img src="../static/images/logo1.png" class="logo-img">
+            <ul>
+                <li><a href="#">New Templates</a></li>
+                <li><a href="second_page">Smart Tools</a></li>
+                <li><a href="#">Advanced Solutions</a></li>
+                <li><a href="#">Flexible Options</a></li>
+              
+            </ul>
+        </nav>
+        <div class="toastalert"></div>
+        <div class="popup">
+            <header>
+                <span>File Uploader</span>
+                <div class="close"><i class='bx bx-exit'></i></div>
+            </header>
+            <div class="content">
+                <p>Upload required files</p>
+                <ul class="icons">
+                    
+                    <!-- Common file uploader for all .Gets triggered onclick the PDF button for now-->
+                    <input type="file" id="CommonUploader" accept=".pdf"  hidden="hidden">
+                    
+                    <!-- Excel file uploader .Gets triggered onclick the Excel button for now-->
+                    <input type="file" id="ExcelUploader" accept=".xls, .xlsx"  hidden="hidden">
+
+                    <!-- Image file uploader for all .Gets triggered onclick the PDF button for now-->
+                    <input type="file" id="ImageUploader" accept=".png, .jpg, .jpeg, "  hidden="hidden">
+                     
+
+                    <button id="PDF" name="PDF"><i class='bx bxs-file-pdf' ></i></button>
+                    <button id="EXCEL" name="EXCEL"><i class='bx bxs-spreadsheet' ></i></button>
+                    <button id="IMAGE" name="IMAGE"><i class='bx bx-image' ></i></button>
+                    
+    
+                
+                </ul>
+            </div>
+        </div>
+
+        <header class="header">
+            <div class="header--title">
+                <h1>{{ modelname }}</h1>
+                <h2>How can I help you?</h2>
+            </div>
+          
+            
+        </header>
+        <section class="chats"></section>
+        <section class="prompt">
+            <div action="#" class="prompt--form" >
+                <div class="prompt--input--wrapper">
+                    <input type="text" placeholder="Enter you prompt here" id="prompt--form--input" class="prompt--form--input" required>
+                    <button class="prompt--form--button" id="sendbutton">
+                        <i class='bx bx-send' ></i>
+
+                    </button>
+                    <button class="prompt--form--button" id="deleteButton">
+                        <i class='bx bx-trash'></i>
+
+                    </button>
+                    <button class="prompt--form--button" id="filelinker">
+                        <i class='bx bx-link' ></i>
+
+                    </button>
+
+                </div>
+            </div>
+            <p class="prompt--disclaimer">
+                Infinity Pro Ai may display inaccurate info, including about people, so double check its responses.
+            </p>
+        </section>
+
+     
+
+
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="{{ url_for('static', filename='js/Ai_tool.js') }}"></script>
+        
+
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+flask
+Pillow
+PyPDF2
+pandas
+numpy
+python-dotenv
+langchain
+langchain-google-genai

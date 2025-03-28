@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity AI Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Parameters.css') }}">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+   <link rel="stylesheet" href="https://img.icons8.com/sf-regular/48/chatgpt.png">
+</head><link rel="icon" type="image/jpg" href="../static/images/favicon.png">
+<body>
+  
+  
+     <div class="maincontainer">
+         <nav>
+            
+        <img src="../static/images/logo1.png" class="logo-img">
+        <ul>
+            <li><a href="#">New Templates</a></li>
+            <li><a href="second_page">Smart Tools</a></li>
+            <li><a href="#">Advanced Solutions</a></li>
+            <li><a href="#">Flexible Options</a></li>
+        </ul>
+       
+    </nav>
+    <div class="divbox">
+
+        <div class="form-container">
+            <form action="#" id="aiForm">
+                <div class="row">
+                    <div class="input-group">
+                        <input type="text" id="modelname" required>
+                        <label for="modelname"><i class="fa-solid fa-robot"></i> Model name</label>
+                    </div>
+                </div>
+            
+                <div class="input-group">
+                    <input type="text" id="oneline" required>
+                    <label for="oneline"><i class="fa-solid fa-globe"></i> One Line Description</label>
+                </div>
+            
+                <div class="input-group">
+                    <input type="range" min="0" max="10" id="ranges">
+                    <label for="ranges" id="temp"><i class="fa-solid fa-temperature-high"></i> Temperature</label>
+                </div>
+            
+                <div class="input-group">
+                    <textarea id="message" rows="8" required></textarea>
+                    <label for="message" id="textarealabel"><i class="fa-solid fa-terminal"></i> Enter Description</label>
+                </div>
+            
+                <div class="select-menu">
+                    <div class="select-btn">
+                        <span class="sbtn-text">Select your option</span>
+                        <i class="bx bx-chevron-down"></i>
+                    </div>
+                    <ul class="options">
+                        <li class="option">
+                            <span class="option-text">Text-to-Text</span>
+                        </li>
+                        <li class="option">
+                            <span class="option-text">Image Agents</span>
+                        </li>
+                        <li class="option">
+                            <span class="option-text">RAG Applications</span>
+                        </li>
+                        <li class="option">
+                            <span class="option-text">Excel Sheet Analyzer</span>
+                        </li>
+                        <li class="option">
+                            <span class="option-text">Multi Purpose Agent</span>
+                        </li>
+                    </ul>
+                </div>
+            
+                <button type="submit" id="submit">SUBMIT <i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+            
+            
+        </div>
+       
+  
+           
+    </div>
+       
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    
+</div>
+<script src="{{ url_for('static', filename='js/Parameters.js') }}"></script>
+</body>
+</html>

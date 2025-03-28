@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity AI Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Second_page.css') }}">
+    <link rel="icon" type="image/jpg" href="../static/images/favicon.png">
+    
+</head>
+<body>
+    
+  
+  
+     <div class="maincontainer">
+         <nav>
+            
+        <img src="../static/images/logo1.png" class="logo-img">
+        <ul>
+            <li><a href="#">New Templates</a></li>
+            <li><a href="second_page">Smart Tools</a></li>
+            <li><a href="#">Advanced Solutions</a></li>
+            <li><a href="#">Flexible Options</a></li>
+        </ul>
+       
+    </nav>
+    <div class="divbox">
+
+        <div class="cardcontainer">
+            <div class="cards">
+              
+                <img src="../static/images/Second_page_images/sample1.jpg" alt="">
+                <div class="card-content">
+                    <h3>Image Analyzers</h1>
+                        <p> Explore the fundamental techniques of Image Analyzing Agents and how they can boost the efficiency of AI models. By structuring prompts correctly, you guide the AI to produce better results in a more reliable and consistent manner. This approach is essential for leveraging AI for various practical Image applications.</p>
+                        <button href="#" class="cardbtn">Create New</button>
+                    </div>
+                    
+                </div>
+                <div class="cards">
+                    <img src="../static/images/Second_page_images/sample2.png" alt="">
+                    <div class="card-content">
+                        <h3>Vector Store RAG</h1>
+                            <p>Discover the power of integrating vector stores with Retrieval-Augmented Generation. By combining the strength of context-based retrieval and generation, you can build more accurate and intelligent AI solutions. This method enhances data handling, increases efficiency, and improves response relevancy in AI applications.</p>
+                <button href="#" class="cardbtn">Create New</button>
+                
+                </div>
+               
+            </div>
+            <div class="cards">
+                <img src="../static/images/Second_page_images/sample3.jpg" alt="">
+                <div class="card-content">
+                    <h3>Simple AI Text Agents</h1>
+                <p> Learn how to create a Simple Agent that handles basic tasks efficiently. By using straightforward algorithms and optimizing workflows, you can automate repetitive tasks and improve productivity with minimal effort. This approach streamlines processes, enhances overall task management..</p>
+                <button href="#" class="cardbtn">Create New</button>
+                
+                </div>
+               
+            </div>
+            
+        <!-- popupcontainer for Image to Text -->
+        </div>
+        <div class="popupcontainer" id="popupcontainer">
+            <button id="closingbtn" class="closingbtn">&times</button>
+            
+
+            <div class="wrapper"
+            ranges=5
+            message="You are an intelligent invoice processing assistant. Your task is to extract data accurately from invoice images and respond to user-specific queries based on the extracted information. Ensure precision, relevance, and clarity in addressing the user's requirements."
+            selectedOption="Image Agents">
+            <img src="../static/images/popupimgs/callogo.jpg" alt="">
+            <div class="text-content">
+                <h2>Invoice Extractor</h2>
+                <p>Extracts and interprets data from invoice images to answer user-specific queries. Ensures precise and relevant responses tailored to the information provided in the invoice.</p>
+                
+            </div>
+        </div>
+        <div class="wrapper"
+            ranges=5
+            message="You are an expert in nutritionist. Your task is to analyze dish images and provide a comprehensive list of nutrient content, including calories and other key nutrients but only at an approximate value as i know you can't do it perfectly. Additionally, offer personalized diet tips based on the analysis to promote balanced and healthy eating."
+            selectedOption="Image Agents">
+            <img src="../static/images/popupimgs/pie.jpg" alt="">
+            <div class="text-content">
+                <h2>Diet Nutrition Expert</h2>
+                <p>"Analyzes dish images to provide a detailed breakdown of nutrient content, including calories and essential nutrients. Offers personalized diet tips to support healthy eating habits.</p>
+                
+            </div>
+        </div>
+
+    
+         <!-- popupcontainer for RAG Applications -->   
+        </div>
+        <div class="popupcontainer" id="popupcontainer">
+            <button id="closingbtn" class="closingbtn">&times</button>
+           
+            <div class="wrapper"
+                ranges=5
+                message="You are an expert in resume optimization and ATS (Applicant Tracking System) compatibility. Your task is to analyze the user's resume (in PDF format) and the provided job description, calculate the matching percentage, and suggest improvements to increase relevance. Additionally, recommend important keywords to include in the resume to ensure better alignment with the job description."
+                selectedOption="RAG Applications">
+                <img src="../static/images/popupimgs/callogo.jpg" alt="">
+                <div class="text-content">
+                    <h2>Resume ATS</h2>
+                    <p>Evaluates resumes against job descriptions to provide a matching percentage and suggest improvements. Recommends essential keywords to enhance the resume's relevance to the job requirements.</p>
+                </div>
+            </div>
+
+            <div class="wrapper"
+                ranges=5
+                message="You are an expert in medical data analysis and health communication. Your task is to analyze patient records and generate clear, personalized health reports that are easy for patients to understand. Provide a detailed but straightforward explanation of the patient's health condition, along with actionable recommendations for improvement."
+                selectedOption="RAG Applications">
+                <img src="../static/images/popupimgs/callogo.jpg" alt="">
+                <div class="text-content">
+                    <h2>Patient Record Analyzer</h2>
+                    <p>Analyzes patient records and generates easy-to-understand health reports. Tailors the report to help patients comprehend their health status and necessary steps for improvement.</p>
+                </div>
+            </div>
+
+           
+            
+
+    
+        <!-- popupcontainer for RAG Applications -->    
+        </div>
+        <div class="popupcontainer" id="popupcontainer">
+            <button id="closingbtn" class="closingbtn">&times</button>
+           
+            <div class="wrapper"
+            ranges=5
+            message="You are an expert SEO strategist. Your task is to generate highly effective and targeted keywords tailored to the user's niche, content goals, and audience. Focus on relevance, search volume, and competitiveness to deliver world-class keyword suggestions. Ensure clarity, precision, and actionable insights to help optimize content and drive organic traffic."
+            selectedOption="Text-to-Text">
+            <img src="../static/images/popupimgs/callogo.jpg" alt="">
+            <div class="text-content">
+                <h2>SEO Keyword Generator</h2>
+                <p>Offers expert guidance and tailored recommendations to enhance your experience in creating SEO Keywords. Such that Inorder to make your products meet the SEO requiremet.</p>
+                
+            </div>
+        </div>
+        <div class="wrapper"
+            ranges=5
+            message="You are an expert content creator and SEO strategist. Your task is to craft compelling, well-structured, and SEO-optimized blog articles based on the user's topic, target audience, and content goals. Ensure the writing is clear, engaging, and aligns with best practices for search engine visibility and audience engagement."
+            selectedOption="Text-to-Text">
+            <img src="../static/images/popupimgs/pie.jpg" alt="">
+            <div class="text-content">
+                <h2>BLOG Writer</h2>
+                <p>Creates engaging, SEO-optimized blogs tailored to your niche and audience with minimal effort.</p>
+            </div>
+        </div>
+        
+        <div class="wrapper"
+            ranges=5
+            message="You are an expert travel planner. Your task is to design customized travel itineraries based on the user's preferences, budget, and desired experiences. Provide recommendations for destinations, accommodations, activities, and travel tips, ensuring clarity, practicality, and an enjoyable experience for the user."
+            selectedOption="Text-to-Text">
+            <img src="../static/images/popupimgs/search.jpg" alt="">
+            <div class="text-content">
+                <h2>Travel Planning Agent</h2>
+                <p>Provides personalized travel itineraries tailored to your preferences and budget. From destinations to accommodations and activities, it ensures a seamless and enjoyable travel experience.</p>
+            </div>
+        </div>
+        
+
+        <div class="wrapper"
+            ranges=5
+            message="You are an expert coding instructor. Your task is to create clear and engaging lectures on programming topics, complete with examples at easy, medium, and hard difficulty levels to help users understand concepts progressively. Focus on clarity, practical application, and fostering confidence in coding skills."
+            selectedOption="Text-to-Text">
+            <img src="../static/images/popupimgs/search.jpg" alt="">
+            <div class="text-content">
+                <h2>Coding Assistant</h2>
+                <p>Serves as a coding mentor, crafting insightful lectures on programming concepts. Includes easy, medium, and hard-level examples to enhance user understanding and skill development.</p>
+            </div>
+        </div>
+
+            
+        
+            
+       
+        </div>
+
+
+
+
+
+    </div>
+
+
+</div>
+<script src="{{ url_for('static', filename='js/Second_page.js') }}"></script>
+
+</body>
+</html>

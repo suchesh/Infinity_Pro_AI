@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity AI Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Get_Started.css') }}">
+    <link rel="icon" type="image/jpg" href="../static/images/favicon.png">
+</head>
+<body>
+    <div class="maincontainer">
+        <nav>
+            
+            <img src="../static/images/logo1.png" class="logo-img">
+            <ul>
+                <li><a href="#">New Templates</a></li>
+                <li><a href="second_page">Smart Tools</a></li>
+                <li><a href="#">Advanced Solutions</a></li>
+                <li><a href="#">Flexible Options</a></li>
+            </ul>
+            <button type="button" onclick="togglebtn()" id="btn"><span></span></button>
+        </nav>
+        <div class="lamp-container">
+            <img src="../static/images/lamp.png" class="lamp">
+            <img src="../static/images/light.png" class="light" id="light">
+        </div>
+        <div class="text-container">
+            <h1>Exploring <br> AI Innovations</h1>
+            <p>Welcome to a space where you can create AI tools designed for your unique needs, whether for personal projects or professional tasks..</p>
+            <a href="{{ url_for('second_page') }}">Start Generating AI Tools</a>
+        </div>
+    </div>
+        
+          
+
+
+
+
+    <script src="{{ url_for('static', filename='js/Get_Started.js') }}"></script>
+
+</body>
+</html>
