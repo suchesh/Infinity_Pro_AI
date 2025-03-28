@@ -38,7 +38,13 @@ Once you provide these details and hit the **Create** button, your AI tool is ge
 
 ###  **Turn Your Ideas into AI-Powered Solutions with Ease!**  
 
-## UI Snapshots
+# UI Snapshots
 
 ![WhatsApp Image 2025-03-26 at 20 42 49_e8eeb117](https://github.com/user-attachments/assets/8d29e7d9-4ec2-4a52-afae-41a68124d3cc)
+
+![WhatsApp Image 2025-03-26 at 20 42 50_2a40de42](https://github.com/user-attachments/assets/ca015bd6-6f25-4e49-a484-cfd205068b4f)
+
+![WhatsApp Image 2025-03-26 at 20 42 48_f7c504e1](https://github.com/user-attachments/assets/183e44e5-8237-4e67-8bb9-cda5df173a15)
+
+
 
