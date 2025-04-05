@@ -11,7 +11,7 @@ generator = Agent()
 # Route for the "Get Started" page
 @app.route('/')
 def get_started():
-    return render_template('Get_started.html')
+    return render_template('Get_Started.html')
 
 # Route for the "Second Page"
 @app.route('/second_page')
