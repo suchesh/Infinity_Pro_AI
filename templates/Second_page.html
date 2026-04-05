@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infinity AI Pro</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/Second_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/Second_page.css') }}">
     <link rel="icon" type="image/jpg" href="../static/images/favicon.png">
     
 </head>
-<body>
+<body data-user-name="{{ user.get('name') if user else '' }}" data-user-email="{{ user.get('email') if user else '' }}">
     
   
   
@@ -95,7 +95,7 @@
            
             <div class="wrapper"
                 ranges=5
-                message="You are an expert in resume optimization and ATS (Applicant Tracking System) compatibility. Your task is to analyze the user's resume (in PDF format) and the provided job description, calculate the matching percentage, and suggest improvements to increase relevance. Additionally, recommend important keywords to include in the resume to ensure better alignment with the job description."
+                message="You are an expert in resume optimization and ATS (Applicant Tracking System) compatibility. Your task is to analyze the user's resume (in PDF format) and the provided job description, calculate the matching percentage, and suggest improvements to increase relevance. Additionally, recommend important keywords to include in the resume to ensure better alignment with the job description(important)."
                 selectedOption="RAG Applications">
                 <img src="../static/images/popupimgs/callogo.jpg" alt="">
                 <div class="text-content">
@@ -183,7 +183,8 @@
 
 
 </div>
-<script src="{{ url_for('static', filename='js/Second_page.js') }}"></script>
+<script src="{{ url_for('static', path='js/session-init.js') }}"></script>
+<script src="{{ url_for('static', path='js/Second_page.js') }}"></script>
 
 </body>
 </html>

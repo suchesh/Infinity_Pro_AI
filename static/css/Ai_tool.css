@@ -75,6 +75,29 @@ nav ul li a {
     color: #fff;
 
 }
+.nav-links{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+}
+.chat-assist{
+    width: 8%;
+    margin-right: 35px;
+    padding: 12px;
+    background: var(--primary-color);         /* matches nav buttons */
+    border: 2px solid #fff;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 17px;
+    margin-top: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.chat-assist:hover {
+    background: #222;
+}
 
 .header,
 .chats .message,
@@ -228,8 +251,117 @@ body.hide-header .header{
 
 .chats .message--text{
   color: var(--text-color);
-  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
   margin-top: 10px;
+  line-height: 1.6;
+  white-space: normal;
+  display: block;
+  width: 100%;
+}
+
+/* Markdown heading styles */
+.chats .message--text h1,
+.chats .message--text h2,
+.chats .message--text h3,
+.chats .message--text h4,
+.chats .message--text h5,
+.chats .message--text h6 {
+  margin: 16px 0 8px 0;
+  font-weight: 600;
+  color: var(--text-color);
+  line-height: 1.3;
+}
+
+.chats .message--text h1 {
+  font-size: 24px;
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 8px;
+}
+
+.chats .message--text h2 {
+  font-size: 20px;
+  border-bottom: 1px solid var(--secondary-color);
+  padding-bottom: 6px;
+}
+
+.chats .message--text h3 {
+  font-size: 18px;
+}
+
+/* Markdown paragraph styles */
+.chats .message--text p {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+/* Markdown list styles */
+.chats .message--text ul,
+.chats .message--text ol {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+.chats .message--text li {
+  margin: 6px 0;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.chats .message--text strong,
+.chats .message--text b {
+  font-weight: 700;
+  color: #fff;
+}
+
+.chats .message--text em,
+.chats .message--text i {
+  font-style: italic;
+}
+
+.chats .message--text ul li::marker {
+  color: var(--secondary-hover-color);
+}
+
+/* Code block styles */
+.chats .message--text code {
+  background: var(--secondary-color);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #fff;
+}
+
+.chats .message--text pre {
+  background: var(--secondary-color);
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 12px 0;
+}
+
+.chats .message--text pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: #fff;
+}
+
+/* Blockquote styles */
+.chats .message--text blockquote {
+  border-left: 4px solid var(--secondary-hover-color);
+  padding-left: 12px;
+  margin: 12px 0;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+/* Horizontal rule */
+.chats .message--text hr {
+  margin: 16px 0;
+  border: none;
+  border-top: 1px solid var(--secondary-color);
 }
 .hide{
   display: none !important;
@@ -884,10 +1016,112 @@ pointer-events: none;
 .toast.hidealert{
   animation: endingmove 0.3s ease forwards;
 }
+
+
+
+/* Overlay (blur background) */
+#cc-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#cc-overlay:not(.cc-hidden) {
+    display: flex;
+}
+
+/* Code Box */
+.cc-box {
+    width: 700px;
+    background: #1e1e1e;
+    border-radius: 10px;
+    color: #ffffff;
+    font-family: Consolas, monospace;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    animation: ccFadeIn 0.25s ease;
+}
+
+/* Header */
+.cc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #252526;
+    padding: 10px 14px;
+}
+
+.cc-tabs {
+    display: flex;
+    gap: 14px;
+}
+
+.cc-tab {
+    cursor: pointer;
+    color: #aaa;
+}
+
+.cc-tab.active {
+    color: #4fc3f7;
+    border-bottom: 2px solid #4fc3f7;
+}
+
+/* Buttons */
+.cc-actions button {
+    background: transparent;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.cc-actions button:hover {
+    color: #fff;
+}
+
+/* Content */
+.cc-content {
+    display: none;
+    padding: 14px;
+    font-size: 14px;
+    white-space: pre-wrap;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.cc-content.active {
+    display: block;
+}
+
+/* Animation */
+@keyframes ccFadeIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
 @keyframes underbar {
   100%{
       width: 0;
   }
+
   
 }
 @keyframes startmove {

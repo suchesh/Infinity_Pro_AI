@@ -27,8 +27,6 @@ submit.onclick = async (event) => {
     const selectedOption = sbtn_text.innerText;
     console.log(selectedOption);
 
-//    
-
     // Validate inputs
     if (!modelname) {
         alert("Please enter the Model Name.");
@@ -61,23 +59,27 @@ submit.onclick = async (event) => {
     };
 
     try {
-        // Send data to the server via POST
-        const response = await fetch('/process_form', {
+        // First, save the tool to MongoDB
+        console.log('Saving tool to database...', formData);
+        const saveResponse = await fetch('/save_tool', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(formData)
         });
 
-        const result = await response.json();
+        const saveResult = await saveResponse.json();
 
-        if (response.ok) {
+        if (saveResponse.ok) {
+            console.log('Tool saved to database:', saveResult);
             localStorage.setItem('mode of agent', selectedOption);
             localStorage.setItem('Name_of_agent', modelname);
+            alert('Tool created and saved successfully!');
             window.location.href = 'ai_tool';
         } else {
-            alert(`Failed to process data: ${result.error || 'Unknown error'}`);
+            alert(`Failed to save tool: ${saveResult.detail || 'Unknown error'}`);
         }
     } catch (error) {
         console.error("Error processing data:", error);

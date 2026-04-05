@@ -1,0 +1,10 @@
+# Environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Sample Application
+
+sample_application/

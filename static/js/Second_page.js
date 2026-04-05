@@ -115,6 +115,7 @@ createnew[1].onclick=()=>{
               headers: {
                   'Content-Type': 'application/json',
               },
+              credentials: 'include',
               body: JSON.stringify({
                   modelname: modelname,
                   oneline: oneline,

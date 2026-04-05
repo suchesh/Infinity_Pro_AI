@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Infinity AI Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/profile.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body data-user-name="{{ user['name'] }}" data-user-email="{{ user['email'] }}">
+
+    <nav>
+        <img src="../static/images/logo1.png" class="logo-img">
+        <button class="back-btn" id="backButton"><i class='bx bx-arrow-back'></i> Back</button>
+    </nav>
+
+    <div class="toastalert"></div>
+
+    <div class="code-modal" id="codeModal">
+        <div class="code-modal-content">
+            <button class="close-code-modal" id="closeCodeModal">&times;</button>
+            <h2>Your Access Code</h2>
+            <div class="code-display">
+                <span id="codeDisplay">TEMP-CODE-12345</span>
+                <button class="copy-btn" id="copyCodeBtn"><i class='bx bx-copy'></i></button>
+            </div>
+        </div>
+    </div>
+
+    <main class="profile-wrapper">
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-banner"></div>
+            <div class="profile-content">
+                <div class="avatar" id="profileAvatar">
+                    <span id="avatarInitials">JD</span>
+                </div>
+                <div class="profile-info">
+                    <h1 id="profileUsername">John Doe</h1>
+                    <p id="profileEmail">john.doe@example.com</p>
+                    <div class="status"><span class="dot"></span> Active</div>
+                </div>
+                <div class="profile-buttons">
+                    <button id="getCodeBtn" class="btn-primary">Get Code</button>
+                    <button id="logoutBtn" class="btn-logout">Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Tools Section -->
+        <div class="my-tools-section">
+            <h2>My Tools</h2>
+            <div class="tools-grid" id="toolsGrid">
+                <!-- Tools will be added here by JS -->
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', path='js/session-init.js') }}"></script>
+    <script src="{{ url_for('static', path='js/profile.js') }}" defer></script>
+
+</body>
+
+</html>

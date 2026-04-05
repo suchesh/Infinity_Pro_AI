@@ -1,80 +1,233 @@
 
 
-const messageform=document.querySelector(".prompt--form");
-const inputbox=document.querySelector(".prompt--form--input");
-const chathistorycontainer=document.querySelector(".chats");
-const clearChatbutton=document.getElementById("deleteButton");
-const filelinker=document.getElementById("filelinker");
-const sendbutton=document.getElementById("sendbutton");
+const messageform = document.querySelector(".prompt--form");
+const inputbox = document.querySelector(".prompt--form--input");
+const chathistorycontainer = document.querySelector(".chats");
+const clearChatbutton = document.getElementById("deleteButton");
+const filelinker = document.getElementById("filelinker");
+const sendbutton = document.getElementById("sendbutton");
+
+// Configure marked for proper markdown rendering
+marked.setOptions({
+    breaks: true,
+    gfm: true,
+    headerIds: false,
+    mangle: false,
+    pedantic: false,
+    smartLists: true,
+    smartypants: false,
+    xhtml: false
+});
 
 //notification alerts declaration
-const toastbox=document.querySelector('.toastalert');
+const toastbox = document.querySelector('.toastalert');
 
-const Success="<i class='bx bxs-check-circle'></i> File upload success";
-let Info="<i class='bx bxs-info-circle'></i>Require necessary files";
-let Warning="<i class='bx bxs-binoculars'></i>Check the files";
-let Errors="<i class='bx bxs-error' ></i> Not Required file.";
+const Success = "<i class='bx bxs-check-circle'></i> File upload sconda uccess";
+let Info = "<i class='bx bxs-info-circle'></i>Require necessary files";
+let Warning = "<i class='bx bxs-binoculars'></i>Check the files";
+let Errors = "<i class='bx bxs-error' ></i> Not Required file.";
 
-function showtoast(msg){
-    let toast =document.createElement('div');
+function showtoast(msg) {
+    let toast = document.createElement('div');
     toast.classList.add("toast");
-    if(msg.includes("<i class='bx bxs-info-circle'")){
+    if (msg.includes("<i class='bx bxs-info-circle'")) {
         toast.classList.add('Info');
 
     }
-    if(msg.includes("<i class='bx bxs-binoculars'")){
+    if (msg.includes("<i class='bx bxs-binoculars'")) {
         toast.classList.add('Warning');
-    
+
     }
-    if(msg.includes("<i class='bx bxs-error'")){
+    if (msg.includes("<i class='bx bxs-error'")) {
         toast.classList.add('Errors');
-        
+
     }
-    toast.innerHTML=msg;
+    toast.innerHTML = msg;
     toastbox.appendChild(toast);
-    setTimeout(()=>{
+    setTimeout(() => {
         removetoast(toast);
-    },3000);
+    }, 3000);
 }
-function removetoast(toast){
+function removetoast(toast) {
     toast.classList.add("hidealert");
-    setTimeout(()=>{
-     toastbox.removeChild(toast);
-    },500)
+    setTimeout(() => {
+        toastbox.removeChild(toast);
+    }, 500)
 }
 
 //Fileuploaders and their buttons declaration
 
-CommonFilebtn=document.getElementById("CommonUploader");
-ExcelFilebtn=document.getElementById("ExcelUploader");
-ImageFilebtn=document.getElementById("ImageUploader");
+CommonFilebtn = document.getElementById("CommonUploader");
+ExcelFilebtn = document.getElementById("ExcelUploader");
+ImageFilebtn = document.getElementById("ImageUploader");
 
-PDFbtn=document.getElementById("PDF");
-EXCELbtn=document.getElementById("EXCEL");
-IMAGEbtn=document.getElementById("IMAGE");
+PDFbtn = document.getElementById("PDF");
+EXCELbtn = document.getElementById("EXCEL");
+IMAGEbtn = document.getElementById("IMAGE");
 
-PDFbtn.onclick=()=>{
+PDFbtn.onclick = () => {
     CommonFilebtn.click();
-  
+
 }
-IMAGEbtn.onclick=()=>{
+IMAGEbtn.onclick = () => {
     ImageFilebtn.click();
     console.log("image file needed")
 
 }
-EXCELbtn.onclick=()=>{
+EXCELbtn.onclick = () => {
     ExcelFilebtn.click();
     console.log("Excel file needed")
 }
 // Getting savedSelction 
 const savedSelection = localStorage.getItem('mode of agent');
 
+// ================= CODE SNIPPETS FOR GET CODE =================
+
+const price = "${price}"
+
+const agentCodeMap = {
+
+    "Text-to-Text": {
+        code: `
+"""Make sure to store your GEMINI API KEY in .env file before executing the code !!!"""
+        
+import os
+import logging
+import re
+from typing import Optional
+from dotenv import load_dotenv
+
+try:
+    import google.generativeai as genai
+    GEMINI_AVAILABLE = True
+except ImportError:
+    GEMINI_AVAILABLE = False
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+load_dotenv()
+
+
+class TravelAIService:
+    """Minimal AI Service - All logic in app.py"""
+    
+    def __init__(self, api_key: Optional[str] = None):
+        self.api_key = api_key or os.getenv("GOOGLE_API_KEY")
+        self.model = None
+        if self.api_key and GEMINI_AVAILABLE:
+            try:
+                genai.configure(api_key=self.api_key)
+                self.model = genai.GenerativeModel(
+                    model_name="gemini-2.5-flash",
+                    generation_config={"temperature": 0.6, "max_output_tokens": 4000}
+                )
+                logger.info("✅ Gemini initialized")
+            except Exception as e:
+                logger.warning(f"Gemini init failed: {e}")
+    
+    def _clean(self, text: str) -> str:
+        if not text:
+            return text
+        text = text.replace('\\n', '\n').replace('\\t', '\t')
+        text = re.sub(r'<[^>]+>', '', text)
+        return text.strip()
+    
+    def generate_recommendations(self, destination: str, duration: str, price: float, description: str) -> str:
+        if self.model:
+            try:
+                prompt = f"""Provide detailed but max 5 -10 lines travel recommendations for {destination} ({duration}, {price}). Include itinerary, attractions, tips."""
+                return self._clean(self.model.generate_content(prompt).text)
+            except:
+                pass
+        return f"""🌍 Travel Guide for {destination}\n\nItinerary tips:\n- Research attractions\n- Book early\n- Plan daily routes\n\nEnjoy your trip!"""
+        
+    def generate_contextual_response(self, destination: str, duration: str, price: float, description: str, question: str, context: str = "") -> str:
+        if self.model:
+            try:
+                prompt = f"""Trip: {destination} ({duration}) Budget: ${price}\n{context}\nQuestion: {question}\nAnswer helpfully."""
+                return self._clean(self.model.generate_content(prompt).text)
+            except:
+                pass
+        return f"""Cannot answer: {question}"""
+
+
+travel_ai_service = TravelAIService()
+`,
+        req: `- Python 3.10+
+- google-generativeai
+- python-dotenv`
+    },
+
+    "Image Agents": {
+        code: `# IMAGE AGENT (Gemini Vision)
+
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+model = genai.GenerativeModel("gemini-2.5-flash")
+
+async def image_to_text(question, image_file):
+    image_bytes = await image_file.read()
+
+    response = model.generate_content([
+        question,
+        {
+            "mime_type": image_file.content_type,
+            "data": image_bytes
+        }
+    ])
+
+    return response.text if response.text else "No response"
+`,
+        req: `- Python
+- google-generativeai
+- Pillow`
+    },
+
+    "RAG Applications": {
+        code: `# RAG PDF AGENT
+
+from PyPDF2 import PdfReader
+import google.generativeai as genai
+import io, os
+from dotenv import load_dotenv
+
+load_dotenv()
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+
+model = genai.GenerativeModel("gemini-2.5-flash")
+
+async def pdf_to_text(question, pdf_file):
+    pdf_bytes = await pdf_file.read()
+    reader = PdfReader(io.BytesIO(pdf_bytes))
+
+    text = ""
+    for page in reader.pages:
+        content = page.extract_text()
+        if content:
+            text += content + "\\n"
+
+    response = model.generate_content(f"{text}\\n\\nQuestion: {question}")
+
+    return response.text if response.text else "No response"
+`,
+        req: `- Python
+- PyPDF2
+- google-generativeai`
+    }
+
+};
+
 const fileTypeConfig = {
     "Image Agents": { required: ["image"], notAllowed: ["excel", "pdf"] },
     "RAG Applications": { required: ["pdf"], notAllowed: ["excel", "image"] },
     "Excel Sheet Analyzer": { required: ["excel"], notAllowed: ["pdf", "image"] },
     "Multi Purpose Agent": { required: ["pdf", "excel"], notAllowed: ["image"] },
-    "Text-to-Text": { required: [], notAllowed: ["pdf", "excel","image"] },
+    "Text-to-Text": { required: [], notAllowed: ["pdf", "excel", "image"] },
 
 };
 
@@ -85,15 +238,15 @@ function handleFileInput(event, fileType) {
     const { required, notAllowed } = config;
 
     if (notAllowed.includes(fileType)) {
-       showtoast(Errors)
+        showtoast(Errors)
         event.target.value = "";
-         // Clear the input
+        // Clear the input
         return;
     }
 }
 
 // filestatus state variable
-let filestatus=false;
+let filestatus = false;
 function validateUploads() {
     const config = fileTypeConfig[savedSelection] || { required: [], notAllowed: [] };
 
@@ -108,7 +261,7 @@ function validateUploads() {
     // If any required files are missing, alert and return false
     if (missingFiles.length) {
         // alert(`Please upload the following required files: ${missingFiles.join(", ")}`);
-        Warning=`<i class='bx bxs-binoculars'></i>Upload Required Files: ${missingFiles.join(", ").toUpperCase()}`
+        Warning = `<i class='bx bxs-binoculars'></i>Upload Required Files: ${missingFiles.join(", ").toUpperCase()}`
         showtoast(Warning)
         return false; // Validation failed
     }
@@ -120,16 +273,16 @@ function validateUploads() {
         const file = ImageFilebtn.files[0];
         if (!file.type.startsWith('image/')) {  // Checks if the file is an image
             // alert("Please upload a valid image file for the image input.");
-            Errors="<i class='bx bxs-error' ></i> Need Valid Image File."
+            Errors = "<i class='bx bxs-error' ></i> Need Valid Image File."
             showtoast(Errors)
             ImageFilebtn.value = "";
-            filestatus=false;  // Clear the input
+            filestatus = false;  // Clear the input
             return false;
         }
-        else if(!filestatus){
+        else if (!filestatus) {
             showtoast(Success)
-            filestatus=true;
-          
+            filestatus = true;
+
         }
     }
 
@@ -138,16 +291,16 @@ function validateUploads() {
         const file = ExcelFilebtn.files[0];
         if (!file.name.endsWith('.xls') && !file.name.endsWith('.xlsx')) {
             // alert("Please upload a valid Excel file (.xls or .xlsx).");
-            Errors="<i class='bx bxs-error' ></i> Need Valid Excel File."
+            Errors = "<i class='bx bxs-error' ></i> Need Valid Excel File."
             showtoast(Errors)
             ExcelFilebtn.value = "";
-            filestatus=false;  
+            filestatus = false;
             return false;
         }
-        else if(!filestatus){
+        else if (!filestatus) {
             showtoast(Success)
-            filestatus=true;
-          
+            filestatus = true;
+
         }
     }
 
@@ -156,65 +309,65 @@ function validateUploads() {
         const file = CommonFilebtn.files[0];
         if (!file.name.endsWith('.pdf')) {
             // alert("Please upload a valid PDF file.");
-            Errors="<i class='bx bxs-error' ></i> Need Valid PDF File."
+            Errors = "<i class='bx bxs-error' ></i> Need Valid PDF File."
             showtoast(Errors)
-            CommonFilebtn.value = ""; 
-            filestatus=false;  
+            CommonFilebtn.value = "";
+            filestatus = false;
             return false;
         }
-        else if(!filestatus){
+        else if (!filestatus) {
             showtoast(Success)
-            filestatus=true;
-          
+            filestatus = true;
+
         }
-       
-    }   
+
+    }
     return true; // Validation passed
 }
 
 //onchange events for each fileuploaders
-CommonFilebtn.addEventListener("change", (event)=> {handleFileInput(event, "pdf")});
-ExcelFilebtn.addEventListener("change", (event)=> {handleFileInput(event, "excel")});
-ImageFilebtn.addEventListener("change", (event)=> {handleFileInput(event, "image")});
+CommonFilebtn.addEventListener("change", (event) => { handleFileInput(event, "pdf") });
+ExcelFilebtn.addEventListener("change", (event) => { handleFileInput(event, "excel") });
+ImageFilebtn.addEventListener("change", (event) => { handleFileInput(event, "image") });
 
 //popup for file uploaders
-closebtn=document.querySelector(".close");
-popup=document.querySelector(".popup");
+closebtn = document.querySelector(".close");
+popup = document.querySelector(".popup");
 
 //state variables  
-let currentusermsg=null;
-let isgeneratingresponse=false;
+let currentusermsg = null;
+let isgeneratingresponse = false;
 
-const loadsavedchathistory=()=>{
-    const savedconversations=JSON.parse(localStorage.getItem("saved-api-chats"))||[];
-    chathistorycontainer.innerHTML='';
+const loadsavedchathistory = () => {
+    const savedconversations = JSON.parse(localStorage.getItem("saved-api-chats")) || [];
+    chathistorycontainer.innerHTML = '';
 
-    requiredfiles=fileTypeConfig[savedSelection].required.join(", ").toUpperCase();
-    Info=(savedSelection==='Text-to-Text')?`<i class='bx bxs-info-circle' ></i>No Files Required.`: Info=`<i class='bx bxs-info-circle' ></i>Require Files: ${requiredfiles}`;
+    requiredfiles = fileTypeConfig[savedSelection].required.join(", ").toUpperCase();
+    Info = (savedSelection === 'Text-to-Text') ? `<i class='bx bxs-info-circle' ></i>No Files Required.` : Info = `<i class='bx bxs-info-circle' ></i>Require Files: ${requiredfiles}`;
     showtoast(Info);
-    
+
     //iterate through saved chat history and display message
     savedconversations.forEach(conversation => {
-        const usermessagehtml=`
+        const usermessagehtml = `
         <div class="message--content">
-            <img class="message__avatar" src="/static/images/sairam.jpg" alt="avatar">
-            <p class="message--text">${conversation.userMessage}</p>
+            <img class="message__avatar" src="/static/images/favicon.png" alt="avatar">
+            <div class="message--text">${conversation.userMessage}</div>
             </div>
             `;
-            
-            const outgoingmessageelement=createchatmessageelement(usermessagehtml,"message--outgoing");
-            chathistorycontainer.append(outgoingmessageelement);
-                      
-            
-            //api response
-            const responsetext=conversation.apiResonse;
-           
-            parsedapiresponse=marked.parse(responsetext);
-            // converts to html
-            const rawapiresponse=responsetext;
-            const responsehtml=` <div class="message--content">
-        <img class="message__avatar" src="/static/images/favicon.png" alt="avatar">
-        <p class="message--text"></p>
+
+        const outgoingmessageelement = createchatmessageelement(usermessagehtml, "message--outgoing");
+        chathistorycontainer.append(outgoingmessageelement);
+
+
+        //api response
+        const responsetext = conversation.apiResonse;
+
+        parsedapiresponse = marked.parse(preprocessmarkdown(responsetext));
+        // converts to html
+        const rawapiresponse = responsetext;
+        const responsehtml = ` <div class="message--content">
+        <img class="message__avatar" src="/static/images/infilogo.jpeg" alt="avatar">
+        <div class="message--text"></div>
         <div class="cssload-loader">
 	    <div>
 		<div class="cssload-dot"></div>
@@ -243,190 +396,308 @@ const loadsavedchathistory=()=>{
 </div>
     <span class="message--icon hide" onclick="copymessagetoclipboard(this)"><i class='bx bx-copy'></i></span>
     </div>`;
-            
-            
-            const incomingmessageelemet=createchatmessageelement(responsehtml,"message--incoming");
-            chathistorycontainer.append(incomingmessageelemet);
-            const messagetextelement=incomingmessageelemet.querySelector(".message--text");
-            //display saved chat without typing effect
-            showtypingeffect(rawapiresponse,parsedapiresponse,messagetextelement,incomingmessageelemet,true);
-            //if true skips the effect
-            
-            
-        });
-        document.body.classList.toggle("hide-header",savedconversations.length>0);
-    };
+
+
+        const incomingmessageelemet = createchatmessageelement(responsehtml, "message--incoming");
+        chathistorycontainer.append(incomingmessageelemet);
+        const messagetextelement = incomingmessageelemet.querySelector(".message--text");
+        //display saved chat without typing effect
+        showtypingeffect(rawapiresponse, parsedapiresponse, messagetextelement, incomingmessageelemet, true);
+        //if true skips the effect
+
+
+    });
+    document.body.classList.toggle("hide-header", savedconversations.length > 0);
+};
 
 //create a new chat message element
-const createchatmessageelement=(htmlcontent,...csssclasses)=>{
-        const messageelement=document.createElement("div");
-        messageelement.classList.add("message",...csssclasses);
-        messageelement.innerHTML=htmlcontent;
-        return messageelement;
+const createchatmessageelement = (htmlcontent, ...csssclasses) => {
+    const messageelement = document.createElement("div");
+    messageelement.classList.add("message", ...csssclasses);
+    messageelement.innerHTML = htmlcontent;
+    return messageelement;
+}
+
+//simple markdown processor for proper display
+const preprocessmarkdown = (text) => {
+    if (!text) return '';
+
+    // Convert to string
+    text = String(text);
+
+    // STEP 1: Try to parse as JSON if it looks like a stringified JSON
+    try {
+        if ((text.startsWith('"') && text.endsWith('"')) ||
+            (text.startsWith("'") && text.endsWith("'"))) {
+            const quote = text[0];
+            const extracted = text.slice(1, -1);
+            // Try to parse as JSON string literal
+            try {
+                text = JSON.parse(JSON.stringify(extracted));
+            } catch (e) {
+                // If that fails, try direct JSON parse
+                text = JSON.parse(text);
+            }
+        } else {
+            // Try parsing the whole thing as JSON
+            text = JSON.parse(text);
+        }
+    } catch (e) {
+        // Not JSON, continue with raw text
     }
 
+    // STEP 2: Ensure output is a string
+    text = String(text);
+
+    // STEP 3: Handle ALL escape sequences using replace()
+    // Use simple replace with global flag for maximum compatibility
+
+    // First handle double-escaped sequences
+    text = text.replace(/\\\\n/g, '\n');
+    text = text.replace(/\\\\t/g, '\t');
+    text = text.replace(/\\\\r/g, '');
+
+    // Then handle single-escaped sequences  
+    text = text.replace(/\\n/g, '\n');
+    text = text.replace(/\\t/g, '\t');
+    text = text.replace(/\\r/g, '');
+
+    // Remove backslashes before markdown/special characters
+    text = text.replace(/\\#/g, '#');
+    text = text.replace(/\\\*/g, '*');
+    text = text.replace(/\\-/g, '-');
+    text = text.replace(/\\!/g, '!');
+    text = text.replace(/\\\[/g, '[');
+    text = text.replace(/\\\]/g, ']');
+    text = text.replace(/\\</g, '<');
+    text = text.replace(/\\>/g, '>');
+    text = text.replace(/\\`/g, '`');
+    text = text.replace(/\\(.)/g, (match) => match.charAt(1));
+
+    // STEP 4: Decode remaining HTML entities  
+    try {
+        const textarea = document.createElement('textarea');
+        textarea.innerHTML = text;
+        text = textarea.value || text;
+    } catch (e) {
+        // Continue if fails
+    }
+
+    return text.trim();
+}
+
 //show typing effect 
-const showtypingeffect=(rawtext,htmltext,messageElement,incomingmessageelemets,skipeffect = false)=>{
-        const copyiconelement=incomingmessageelemets.querySelector(".message--icon");
-        copyiconelement.classList.add("hide");
-        if(skipeffect)
-            {
-                //display directly
-                messageElement.innerHTML=htmltext;
-                hljs.highlightAll();
-                addCopyButtonToCodeBlocks();
-                copyiconelement.classList.remove("hide");
-                isgeneratingresponse=false;
-                return;
-                
-            }
-    const wordarray=rawtext.split(' ');
-    let wordIndex=0;
-    const typingInterval=setInterval(()=>{
-        messageElement.innerText+=(wordIndex===0?"":" ")+wordarray[wordIndex++];
-        if(wordIndex==wordarray.length){
+const showtypingeffect = (rawtext, htmltext, messageElement, incomingmessageelemets, skipeffect = false) => {
+    const copyiconelement = incomingmessageelemets.querySelector(".message--icon");
+    copyiconelement.classList.add("hide");
+    if (skipeffect) {
+        //display directly
+        messageElement.innerHTML = htmltext;
+        hljs.highlightAll();
+        addCopyButtonToCodeBlocks();
+        copyiconelement.classList.remove("hide");
+        isgeneratingresponse = false;
+        return;
+
+    }
+    const wordarray = rawtext.split(' ');
+    let wordIndex = 0;
+    const typingInterval = setInterval(() => {
+        messageElement.innerText += (wordIndex === 0 ? "" : " ") + wordarray[wordIndex++];
+        if (wordIndex == wordarray.length) {
             clearInterval(typingInterval);
-            isgeneratingresponse=false;
-            messageElement.innerHTML=htmltext;
+            isgeneratingresponse = false;
+            messageElement.innerHTML = htmltext;
             hljs.highlightAll();
             addCopyButtonToCodeBlocks();
             copyiconelement.classList.remove("hide");
-            
+
         }
-    },75);
+    }, 75);
 };
 
 //fetch api response based on user input
-const requestapiresponse=async (incomingmessageelemet)=>{
-    const messagetextElement=incomingmessageelemet.querySelector(".message--text");
-    const userInput=currentusermsg
+const requestapiresponse = async (incomingmessageelemet) => {
+    const messagetextElement = incomingmessageelemet.querySelector(".message--text");
+    const userInput = currentusermsg
 
-            const formData = new FormData();
-            formData.append("prompt--form--input", userInput);
-            
-    
-            if (savedSelection === 'Image Agents' || savedSelection === 'RAG Applications' || savedSelection==='Excel Sheet Analyzer') {
-           
-            const CommonFilebtn = document.getElementById('CommonUploader');
-            const ExcelFilebtn=document.getElementById("ExcelUploader");
-            const ImageFilebtn=document.getElementById("ImageUploader");
-            let file=null
+    const formData = new FormData();
+    formData.append("prompt", userInput);
 
-            //checks wheather which files is given and appends it to formData
-            if(CommonFilebtn.value){
-                 file = CommonFilebtn.files[0];
-        
-            }
-            if(ExcelFilebtn.value){
-               file = ExcelFilebtn.files[0];
-            }
-            if(ImageFilebtn.value){
-               file = ImageFilebtn.files[0];
-            }
-          
-           if (file) {
-                formData.append("fileUploaded", file);
-            }
+    // Get chat history from localStorage for context
+    const savedconversations = JSON.parse(localStorage.getItem("saved-api-chats")) || [];
+
+    // Build conversation context (last 5 messages for context window)
+    let conversationContext = '';
+    const contextLength = Math.min(5, savedconversations.length);
+    for (let i = Math.max(0, savedconversations.length - contextLength); i < savedconversations.length; i++) {
+        const conv = savedconversations[i];
+        conversationContext += `User: ${conv.userMessage}\n`;
+        conversationContext += `Assistant: ${conv.apiResonse}\n\n`;
+    }
+
+    // Add conversation context to formData if available
+    if (conversationContext.trim()) {
+        formData.append("context", conversationContext);
+    }
+
+
+    if (savedSelection === 'Image Agents' || savedSelection === 'RAG Applications' || savedSelection === 'Excel Sheet Analyzer') {
+
+        const CommonFilebtn = document.getElementById('CommonUploader');
+        const ExcelFilebtn = document.getElementById("ExcelUploader");
+        const ImageFilebtn = document.getElementById("ImageUploader");
+        let file = null
+
+        //checks wheather which files is given and appends it to formData
+        if (CommonFilebtn.value) {
+            file = CommonFilebtn.files[0];
+
+        }
+        if (ExcelFilebtn.value) {
+            file = ExcelFilebtn.files[0];
+        }
+        if (ImageFilebtn.value) {
+            file = ImageFilebtn.files[0];
         }
 
-        if (savedSelection === 'Multi Purpose Agent') {
-            //for file1[pdf]
-            const CommonFilebtn = document.getElementById('CommonUploader');
-            const file1 = CommonFilebtn.files[0];
-            if (file1) {
-                formData.append("fileUploaded1", file1);
-            }
+        if (file) {
+            formData.append("fileUploaded", file);
+        }
+    }
 
-            //for file2[Excel]
-            const ExcelFilebtn = document.getElementById('ExcelUploader');
-            const file2 = ExcelFilebtn.files[0];
-            if (file2) {
-                formData.append("fileUploaded2", file2);
-            }
+    if (savedSelection === 'Multi Purpose Agent') {
+        //for file1[pdf]
+        const CommonFilebtn = document.getElementById('CommonUploader');
+        const file1 = CommonFilebtn.files[0];
+        if (file1) {
+            formData.append("fileUploaded1", file1);
         }
 
+        //for file2[Excel]
+        const ExcelFilebtn = document.getElementById('ExcelUploader');
+        const file2 = ExcelFilebtn.files[0];
+        if (file2) {
+            formData.append("fileUploaded2", file2);
+        }
+    }
 
-        try{
+
+    try {
 
 
-            //Api response fetcing 
-            const response = await fetch('/process_user_input', {
-                method: 'POST',
-                body: formData
-            });
-    
-            if (response.ok) {
+        //Api response fetcing 
+        const response = await fetch('/process_user_input', {
+            method: 'POST',
+            credentials: 'include',
+            body: formData
+        });
 
-                // Get the response text from the server
-                const responsetext = await response.text();
-        
-        if(!responsetext) throw new Error("Invaild api response");
+        if (response.ok) {
 
-        const parsedapiresponse=marked.parse(responsetext);
-        const rawapiresponse=responsetext;
+            // Get the response text from the server
+            let responsetext = await response.text();
 
-        showtypingeffect(rawapiresponse,parsedapiresponse,messagetextElement,incomingmessageelemet);
-        
-        //save conversation in localstorage
-        let savedconversations=JSON.parse(
-            localStorage.getItem("saved-api-chats"))||[];
+            if (!responsetext) throw new Error("Invalid api response");
+
+            // Step 1: Trim whitespace
+            responsetext = responsetext.trim();
+
+            // Step 2: Clean HTML entities
+            const htmlDecode = document.createElement('textarea');
+            htmlDecode.innerHTML = responsetext;
+            responsetext = htmlDecode.value || responsetext;
+
+            // Step 3: Clean and process the response
+            let cleantext = responsetext;
+
+            // Try to parse as JSON first - this is crucial for handling escaped newlines
+            try {
+                // Only try to parse if it looks like a JSON string
+                if ((responsetext.startsWith('"') && responsetext.endsWith('"')) ||
+                    (responsetext.startsWith("'") && responsetext.endsWith("'"))) {
+                    cleantext = JSON.parse(responsetext);
+                } else {
+                    // Try parsing anyway in case it's valid JSON
+                    cleantext = JSON.parse(responsetext);
+                }
+            } catch (e) {
+                // If not valid JSON, use as-is
+                cleantext = responsetext;
+            }
+
+            // Ensure we have a string
+            cleantext = String(cleantext);
+
+            // Step 4: Preprocess markdown (handles any remaining escape sequences)
+            const preprocessedtext = preprocessmarkdown(cleantext);
+
+            // Step 5: Parse markdown to HTML
+            const parsedapiresponse = marked.parse(preprocessedtext);
+            const rawapiresponse = cleantext;
+
+            showtypingeffect(rawapiresponse, parsedapiresponse, messagetextElement, incomingmessageelemet);
+
+            //save conversation in localstorage
+            let savedconversations = JSON.parse(
+                localStorage.getItem("saved-api-chats")) || [];
             savedconversations.push(
                 {
-                    
-                    userMessage:currentusermsg,
-                    apiResonse:responsetext
+
+                    userMessage: currentusermsg,
+                    apiResonse: responsetext
                 }
             );
-            
-            localStorage.setItem("saved-api-chats",JSON.stringify(savedconversations));
-            
+
+            localStorage.setItem("saved-api-chats", JSON.stringify(savedconversations));
+
         }
     }
-        catch (error){
-            isgeneratingresponse=false;
-            console.log(messagetextElement.innerText)
-            console.log(error.message)
-            messagetextElement.innerText=error.message;
-            messagetextElement.closest(".message").classList.add("message--error");
-        }
-        finally{
-            incomingmessageelemet.classList.remove("message--loading");
-        }
+    catch (error) {
+        isgeneratingresponse = false;
+        console.log(messagetextElement.innerText)
+        console.log(error.message)
+        messagetextElement.innerText = error.message;
+        messagetextElement.closest(".message").classList.add("message--error");
     }
+    finally {
+        incomingmessageelemet.classList.remove("message--loading");
+    }
+}
 
 //add copy button to code blocks 
-const addCopyButtonToCodeBlocks=()=>{
-        const codeblocks=document.querySelectorAll('pre');
-        codeblocks.forEach((block)=>{
-            const codeelement=block.querySelector('code');
-            let language=[...codeelement.classList].find(cls=>cls.startsWith('language-'))?.replace('language-','')||'Text';
-            const languagelabel=document.createElement('div');
-            languagelabel.innerText=language.charAt(0).toUpperCase()+language.slice(1);
-            languagelabel.classList.add('code--language--label');
-            block.appendChild(languagelabel);
-            const copybutton=document.createElement('button');
-            copybutton.innerHTML=`<i class='bx bx-copy'></i>`;
-            copybutton.classList.add("code--copy-btn");
-            block.appendChild(copybutton);
-            
-            copybutton.addEventListener('click',()=>{
-                navigator.clipboard.writeText(codeelement.innerText).then(()=>{
-                    copybutton.innerHTML=`<i class='bx bx-check'></i>`;
-                    setTimeout(()=>copybutton.innerHTML=`<i class='bx bx-copy'></i>`,2000);
-                }).catch(err=>
-                    {
-                        console.error('copy failed',err);
-                        alert('unable to copy the text');
+const addCopyButtonToCodeBlocks = () => {
+    const codeblocks = document.querySelectorAll('pre');
+    codeblocks.forEach((block) => {
+        const codeelement = block.querySelector('code');
+        let language = [...codeelement.classList].find(cls => cls.startsWith('language-'))?.replace('language-', '') || 'Text';
+        const languagelabel = document.createElement('div');
+        languagelabel.innerText = language.charAt(0).toUpperCase() + language.slice(1);
+        languagelabel.classList.add('code--language--label');
+        block.appendChild(languagelabel);
+        const copybutton = document.createElement('button');
+        copybutton.innerHTML = `<i class='bx bx-copy'></i>`;
+        copybutton.classList.add("code--copy-btn");
+        block.appendChild(copybutton);
+
+        copybutton.addEventListener('click', () => {
+            navigator.clipboard.writeText(codeelement.innerText).then(() => {
+                copybutton.innerHTML = `<i class='bx bx-check'></i>`;
+                setTimeout(() => copybutton.innerHTML = `<i class='bx bx-copy'></i>`, 2000);
+            }).catch(err => {
+                console.error('copy failed', err);
+                alert('unable to copy the text');
             }
-            ) ;
+            );
         });
     });
 };
+
 //show loading animation 
-const displayloadinganimation=()=>{
-    const lodinghtml=`<div class="message--content">
-    <img class="message__avatar" src="/static/images/favicon.png" alt="avatar">
-    <p class="message--text"></p>
+const displayloadinganimation = () => {
+    const lodinghtml = `<div class="message--content">
+    <img class="message__avatar" src="/static/images/infilogo.jpeg" alt="avatar">
+    <div class="message--text"></div>
     <div class="cssload-loader">
 	<div>
 		<div class="cssload-dot"></div>
@@ -455,102 +726,102 @@ const displayloadinganimation=()=>{
 </div>
     <span class="message--icon hide" onclick="copymessagetoclipboard(this)"><i class='bx bx-copy'></i></span>
     </div>`;
-    const loadingmessageelement = createchatmessageelement(lodinghtml,"message--incoming","message--loading");
-   
+    const loadingmessageelement = createchatmessageelement(lodinghtml, "message--incoming", "message--loading");
+
     chathistorycontainer.appendChild(loadingmessageelement);
-    
+
     requestapiresponse(loadingmessageelement);
 };
 //copy message to clipboard
-const copymessagetoclipboard=(copybutton)=>{
+const copymessagetoclipboard = (copybutton) => {
     console.log("The copy")
-    const  messagecontent =copybutton.parentElement.querySelector(".message--text").innerText;
+    const messagecontent = copybutton.parentElement.querySelector(".message--text").innerText;
     navigator.clipboard.writeText(messagecontent);
-    copybutton.innerHTML=`<i class='bx bx-check'></i>`;
+    copybutton.innerHTML = `<i class='bx bx-check'></i>`;
     setTimeout(() => {
-        copybutton.innerHTML=`<i class='bx bx-copy'></i>`
+        copybutton.innerHTML = `<i class='bx bx-copy'></i>`
     }, 1000);
-    
+
 }
 //handle sending chat messages
-const handleoutgoingmessage=()=>{
-    
-    currentusermsg=messageform.querySelector(".prompt--form--input").value.trim()||currentusermsg;
+const handleoutgoingmessage = () => {
 
-    if(!currentusermsg||isgeneratingresponse) return;
-    isgeneratingresponse=true;
-    const outgoingmessagehtml=`
+    currentusermsg = messageform.querySelector(".prompt--form--input").value.trim() || currentusermsg;
+
+    if (!currentusermsg || isgeneratingresponse) return;
+    isgeneratingresponse = true;
+    const outgoingmessagehtml = `
     <div class="message--content">
-    <img class="message__avatar" src="/static/images/sairam.jpg" alt="avatar">
-    <p class="message--text"></p>
+    <img class="message__avatar" src="/static/images/favicon.png" alt="avatar">
+    <div class="message--text"></div>
     </div>
     `;
-    const outgoingmessageelement =createchatmessageelement(outgoingmessagehtml,"message--outgoing");    
-    outgoingmessageelement.querySelector(".message--text").innerText=currentusermsg;
+    const outgoingmessageelement = createchatmessageelement(outgoingmessagehtml, "message--outgoing");
+    outgoingmessageelement.querySelector(".message--text").innerText = currentusermsg;
     chathistorycontainer.appendChild(outgoingmessageelement)
-   
+
     // messageform.reset(); inputbox is cleared
-    inputbox.value='';
+    inputbox.value = '';
 
     document.body.classList.add("hide-header");
-    setTimeout(displayloadinganimation,500);
-    
+    setTimeout(displayloadinganimation, 500);
+
 };
 //toggle theme if needed here but not required for now
 
 // clear all chat history
 
-clearChatbutton.addEventListener('click',()=>
-    {
-        if(confirm("are you sure ?")){
-         
-            localStorage.removeItem("saved-api-chats");      
-            //reloading the function 
-            loadsavedchathistory()
-            currentusermsg=null;
-            isgeneratingresponse=false;
-            
-        };
-        
-    });
-    
+clearChatbutton.addEventListener('click', () => {
+    if (confirm("are you sure ?")) {
+
+        localStorage.removeItem("saved-api-chats");
+        //reloading the function 
+        loadsavedchathistory()
+        currentusermsg = null;
+        isgeneratingresponse = false;
+
+    };
+
+});
+
 //Evenlisten for Enter keyword
-inputbox.addEventListener('keydown',(event)=>{
-        if(event.key==='Enter'){
-            if(inputbox.value===''){
-                Warning="<i class='bx bxs-binoculars'></i>Enter some Prompt"
-                showtoast(Warning)
-            }
-            if(inputbox.value && popup.classList.contains("show")){
-                filelinker.click();
-                filelinker.classList.remove("pointno")
-            }
-            allowed=validateUploads();
-            if(allowed){handleoutgoingmessage();}
+inputbox.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        if (inputbox.value === '') {
+            Warning = "<i class='bx bxs-binoculars'></i>Enter some Prompt"
+            showtoast(Warning)
         }
-    });
+        if (inputbox.value && popup.classList.contains("show")) {
+            filelinker.click();
+            filelinker.classList.remove("pointno")
+        }
+        allowed = validateUploads();
+        if (allowed) { handleoutgoingmessage(); }
+    }
+});
+
 //Onclick for send button
-sendbutton.onclick=()=>{
-       
-    if(inputbox.value && popup.classList.contains("show")){
+sendbutton.onclick = () => {
+
+    if (inputbox.value && popup.classList.contains("show")) {
         filelinker.click();
         filelinker.classList.remove("pointno")
     }
-        allowed=validateUploads();
-        if(allowed){handleoutgoingmessage();}
-} 
+    allowed = validateUploads();
+    if (allowed) { handleoutgoingmessage(); }
+}
 
 //Onclick for filelinker button
-filelinker.onclick=()=>{
-        popup.classList.toggle("show");
-        filelinker.classList.add("pointno");
-       
-} 
+filelinker.onclick = () => {
+    popup.classList.toggle("show");
+    filelinker.classList.add("pointno");
+
+}
 
 //file popup close button
-closebtn.onclick=()=>{
-        filelinker.click();
-        filelinker.classList.remove("pointno")
+closebtn.onclick = () => {
+    filelinker.click();
+    filelinker.classList.remove("pointno")
 
 }
 
@@ -558,18 +829,79 @@ closebtn.onclick=()=>{
 
 window.addEventListener("load", function () {
     //storing the previousagent_name and current_name to work with loading history
-    let previousAgent = localStorage.getItem("previousAgent");  
-    let currentAgent = localStorage.getItem("Name_of_agent"); 
+    let previousAgent = localStorage.getItem("previousAgent");
+    let currentAgent = localStorage.getItem("Name_of_agent");
 
     if (previousAgent && previousAgent !== currentAgent) {
         //if new agent was selcted removing the chat history of previous agent from storage
-        localStorage.removeItem("saved-api-chats");      
-        
+        localStorage.removeItem("saved-api-chats");
+
     }
-    else{
+    else {
         //if same agent then load saved history
         loadsavedchathistory()
     }
 
-    localStorage.setItem("previousAgent", currentAgent); 
+    localStorage.setItem("previousAgent", currentAgent);
 });
+
+const buttons = document.querySelectorAll(".chat-assist");
+const overlay = document.getElementById("cc-overlay");
+
+/* Existing buttons logic */
+buttons.forEach(button => {
+    button.addEventListener("click", (e) => {
+        e.preventDefault();
+        let text = button.innerText.trim();
+        console.log("Button clicked:", text);
+
+        if (text === "Profile") {
+            console.log("Navigating to /profile-page");
+            window.location.href = window.location.origin + "/profile-page";
+        }
+
+        if (text === "Get Code") {
+            overlay.classList.remove("cc-hidden");
+
+            const selected = savedSelection || "Text-to-Text";
+
+            const data = agentCodeMap[selected];
+
+            if (data) {
+                const codeElement = document.getElementById("cc-code");
+                codeElement.innerHTML = "<pre><code></code></pre>";
+                codeElement.querySelector("code").textContent = data.code;
+                document.getElementById("cc-req").innerText = data.req;
+
+                // Apply syntax highlighting
+                hljs.highlightAll();
+            } else {
+                document.getElementById("cc-code").innerText = "No code available";
+                document.getElementById("cc-req").innerText = "";
+            }
+        }
+    });
+});
+
+/* Close modal */
+document.querySelector(".cc-close").addEventListener("click", () => {
+    overlay.classList.add("cc-hidden");
+});
+
+/* Tabs */
+document.querySelectorAll(".cc-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+        document.querySelectorAll(".cc-tab").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".cc-content").forEach(c => c.classList.remove("active"));
+
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.tab).classList.add("active");
+    });
+});
+
+/* Copy */
+document.querySelector(".cc-copy").addEventListener("click", () => {
+    const activeContent = document.querySelector(".cc-content.active").innerText;
+    navigator.clipboard.writeText(activeContent);
+});
+

@@ -1,10 +1,54 @@
-flask
+# -----------------------------
+# Core Backend
+# -----------------------------
+fastapi
+uvicorn
+starlette
+
+# -----------------------------
+# Templates, Forms & Static Files
+# -----------------------------
+jinja2
+python-multipart
+itsdangerous
+aiofiles
+
+# -----------------------------
+# Environment & HTTP
+# -----------------------------
+python-dotenv
+requests
+
+# -----------------------------
+# Authentication & Security
+# -----------------------------
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt==3.2.2   # ⚠️ REQUIRED for passlib compatibility
+
+# -----------------------------
+# Validation
+# -----------------------------
+pydantic[email]
+email-validator
+
+# -----------------------------
+# Database (MongoDB)
+# -----------------------------
+motor
+
+# -----------------------------
+# AI & LangChain
+# -----------------------------
+langchain
+langchain-core
+langchain-google-genai
+google-generativeai   # (deprecated warning is OK for now)
+
+# -----------------------------
+# File & Data Processing
+# -----------------------------
 Pillow
 PyPDF2
 pandas
-python-dotenv
-langchain
-langchain-google-genai
-gunicorn
-google-generativeai
 openpyxl
