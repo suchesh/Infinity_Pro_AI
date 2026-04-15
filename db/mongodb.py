@@ -1,6 +1,6 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 
-MONGO_URL = "mongodb+srv://suchesh:infi123@infinity-pro-ai-cluster.flx8byp.mongodb.net/infinity_pro_AI_auth_db?retryWrites=true&w=majority"
+MONGO_URL = "MONGO_DB_URI"
 
 client = AsyncIOMotorClient(MONGO_URL)
 
