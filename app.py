@@ -9,7 +9,7 @@ from routes.protected_routes import router as protected_router
 app = FastAPI()
 
 # 🔐 Session middleware
-app.add_middleware(
+app.add_middleware( 
     CORSMiddleware,
     allow_origins=["*"],  # Allow all origins during development
     allow_credentials=True,
